@@ -1,7 +1,8 @@
 # onealarm-doc
 
 [OneAlarm](https://github.com/hiragi-dev/onealarm-app) の**利用者向け**ドキュメントサイト。
-非エンジニアが読むことを想定しているので、実装の話はここに書かない。
+
+公開URL: https://hiragi-dev.github.io/onealarm-doc/
 
 ## 編集する
 
