@@ -1,0 +1,14 @@
+/*
+ * スクリーンショットはスマホ幅（446px）で撮っているため、本文の幅いっぱいに
+ * 引き伸ばすと不自然に大きい。実寸より小さめに抑えて中央に置き、
+ * 「スマホの画面である」ことが形で分かるようにする。
+ */
+.vp-doc img[src^='/screenshots/'],
+.vp-doc img[src*='/screenshots/'] {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin: 1.5rem auto;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+}
