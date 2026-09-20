@@ -25,6 +25,14 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 /** dev 限定の要素と、撮影に不要な常駐 UI を取り除く */
 async function cleanup() {
   await page.evaluate(() => {
+    // 全画面ダイアログ（ウィザード・編集画面・地図）の外周の枠線と影は、
+    // 画像の端に 1px の線として写り込み、iPhone 風の外枠と二重に見える。撮影時だけ消す
+    if (!document.getElementById('shot-style')) {
+      const style = document.createElement('style')
+      style.id = 'shot-style'
+      style.textContent = '[role="dialog"], [data-slot="dialog-content"] { border-color: transparent !important; box-shadow: none !important; }'
+      document.head.appendChild(style)
+    }
     // remove ではなく非表示にする。開発用ボタンを撮影後も el.click() で押せるようにするため
     const kill = (el) => el && (el.style.display = 'none')
     // TanStack Router devtools（右下のボタン）
