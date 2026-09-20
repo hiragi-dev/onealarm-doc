@@ -6,15 +6,16 @@
 
 ## 編集する
 
-本文はすべて `docs/` 直下の Markdown。触るのはこの5＋1ファイルだけで済む。
+本文はすべて `docs/` 直下の Markdown。触るのはこの6＋1ファイルだけで済む。
 
 | ファイル | 内容 |
 | --- | --- |
 | `docs/index.md` | トップ（hero と features は front matter で編集する） |
-| `docs/getting-started.md` | はじめかた（最初の3ステップ） |
+| `docs/getting-started.md` | はじめかた（機器の準備からアラーム作成まで） |
 | `docs/screens.md` | 3タブの説明（アラーム / 停止 / 設定） |
 | `docs/ringing.md` | 鳴動中の画面 |
-| `docs/device-setup.md` | 機器のセットアップ |
+| `docs/device-setup.md` | 機器（M5StickS3）のセットアップ。書き込みと初期設定 |
+| `docs/device.md` | 機器の使い方。画面・ボタン・電源・鳴動中の動き |
 | `docs/faq.md` | よくある質問 |
 
 サイドバーの並び・サイト名・検索の文言は `docs/.vitepress/config.ts`。

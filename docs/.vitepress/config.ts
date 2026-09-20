@@ -29,8 +29,14 @@ export default defineConfig({
           { text: 'はじめかた', link: '/getting-started' },
           { text: '画面の使い方', link: '/screens' },
           { text: '鳴動中の画面', link: '/ringing' },
-          { text: '機器のセットアップ', link: '/device-setup' },
           { text: 'よくある質問', link: '/faq' },
+        ],
+      },
+      {
+        text: '機器',
+        items: [
+          { text: '機器のセットアップ', link: '/device-setup' },
+          { text: '機器の使い方', link: '/device' },
         ],
       },
     ],
