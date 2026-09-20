@@ -19,8 +19,10 @@
 
 サイドバーの並び・サイト名・検索の文言は `docs/.vitepress/config.ts`。
 
-画像は `docs/public/screenshots/` に置き、本文からは `/screenshots/xxx.png` で参照する
-（`public/` の中身はビルド時にルート直下へ展開されるため、パスに `public` を含めない）。
+画像は `docs/public/screenshots/` に置き、本文からは
+`<PhoneShot src="/screenshots/xxx.png" alt="説明" />` で貼る（iPhone 風の外枠付きで表示される。
+実体は `docs/.vitepress/theme/PhoneShot.vue`）。`public/` の中身はビルド時にルート直下へ展開されるため、
+パスに `public` を含めない。
 
 他のページからリンクする見出しには `## つながらない {#connection}` のように ASCII の ID を付ける。
 VitePress が生成する見出し ID は濁点・半濁点が分離された形（NFD）になるため、

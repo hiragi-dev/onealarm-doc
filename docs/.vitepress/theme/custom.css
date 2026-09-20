@@ -1,14 +1,86 @@
 /*
- * スクリーンショットはスマホ幅（446px）で撮っているため、本文の幅いっぱいに
- * 引き伸ばすと不自然に大きい。実寸より小さめに抑えて中央に置き、
- * 「スマホの画面である」ことが形で分かるようにする。
+ * スクリーンショットは PhoneShot コンポーネントで iPhone 風の外枠に入れて出す。
+ * 幅 420px・2倍解像度で撮った画像を、本文幅より小さめに抑えて中央に置く。
  */
-.vp-doc img[src^='/screenshots/'],
-.vp-doc img[src*='/screenshots/'] {
+.phone-shot {
+  margin: 1.75rem auto;
+  width: 100%;
+  max-width: 340px;
+}
+
+/* 本体。ベゼルの金属縁と側面ボタンを擬似要素で描く */
+.phone-shot__body {
+  position: relative;
+  padding: 12px;
+  border-radius: 54px;
+  background: #1c1c1e;
+  box-shadow:
+    0 0 0 1.5px #4a4a4e,
+    0 0 0 4px #2a2a2c,
+    0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+.phone-shot__body::before,
+.phone-shot__body::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  border-radius: 2px;
+  background: #3a3a3c;
+}
+
+/* 左側: 音量ボタン */
+.phone-shot__body::before {
+  left: -7px;
+  top: 120px;
+  height: 90px;
+  box-shadow: 0 -60px 0 0 #3a3a3c;
+}
+
+/* 右側: 電源ボタン */
+.phone-shot__body::after {
+  right: -7px;
+  top: 140px;
+  height: 110px;
+}
+
+/* 画面。上端に Dynamic Island 分の余白を取り、画像の上端の色で塗る */
+.phone-shot__screen {
+  position: relative;
+  overflow: hidden;
+  border-radius: 42px;
+  padding-top: 44px;
+  padding-bottom: 6px;
+  background: #000;
+}
+
+.phone-shot__island {
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  width: 34%;
+  height: 26px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #000;
+}
+
+.phone-shot__screen img {
   display: block;
   width: 100%;
-  max-width: 320px;
-  margin: 1.5rem auto;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 12px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+/* ホームインジケーター */
+.phone-shot__home {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  width: 36%;
+  height: 4px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
 }
