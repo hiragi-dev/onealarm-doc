@@ -13,7 +13,7 @@
 | `docs/index.md` | トップ（hero と features は front matter で編集する） |
 | `docs/getting-started.md` | はじめかた（最初の3ステップ） |
 | `docs/screens.md` | 3タブの説明（アラーム / 停止 / 設定） |
-| `docs/ringing.md` | 鳴ったときの挙動 |
+| `docs/ringing.md` | 鳴動中の画面 |
 | `docs/device-setup.md` | 機器のセットアップ |
 | `docs/faq.md` | よくある質問 |
 
