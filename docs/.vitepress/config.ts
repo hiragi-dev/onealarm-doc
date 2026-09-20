@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   lang: 'ja-JP',
   title: 'OneAlarm',
-  description: '設定した場所まで歩かないと止められないアラーム — 使い方ガイド',
+  description: '設定した場所まで歩かないと止められないアラームの使い方',
 
   // GitHub Pages 用。リポジトリ名を変えたらここも合わせる。
   // ユーザー/組織サイト（<name>.github.io）として置く場合は '/' にする。
