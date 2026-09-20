@@ -12,7 +12,7 @@
 | --- | --- |
 | `docs/index.md` | トップ（hero と features は front matter で編集する） |
 | `docs/getting-started.md` | はじめかた（最初の3ステップ） |
-| `docs/screens.md` | 3タブの説明 |
+| `docs/screens.md` | 3タブの説明（アラーム / 停止 / 設定） |
 | `docs/ringing.md` | 鳴ったときの挙動 |
 | `docs/device-setup.md` | 機器のセットアップ |
 | `docs/faq.md` | よくある質問 |
@@ -41,6 +41,17 @@ npm run docs:preview  # ビルド結果を確認
 
 ## スクリーンショットの撮り直し
 
-`onealarm-app` の `npm run dev` を起動し、ブラウザを幅 420px 程度にして撮る。
-**dev ビルドにだけ出る開発ツール**（設定タブ下部のパネル、鳴動画面の「開発用」カード）が
-写り込まないように注意する。
+`onealarm-app` で `npm run dev` を起動しておき、このリポジトリで次を実行する。
+
+```bash
+npm run screenshots                    # 全画面
+SECTION=ringing npm run screenshots    # 鳴動画面だけ
+```
+
+`scripts/screenshots.mjs` がローカルの Google Chrome をヘッドレスで起動し、
+`docs/public/screenshots/` に上書き保存する（幅 420px・2倍解像度）。
+dev サーバーが別の URL なら `BASE=http://...` で指定する。
+
+dev ビルドにだけ出る開発ツール（設定タブ下部のパネル、鳴動画面の「開発用」カード）は
+撮影前にスクリプトが非表示にする。手で撮る場合は写り込まないように注意する。
+地図は WebGL で描くため、ヘッドレス Chrome は `--use-angle=swiftshader` 付きで起動している。
