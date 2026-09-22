@@ -3,11 +3,14 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   lang: 'ja-JP',
   title: 'OneAlarm',
-  description: '設定した場所まで歩かないと止められないアラームの使い方',
+  description: '電源を切っても止まらないアラームの使い方',
 
+  // トップはランディングページ（site/）が担当するため、ドキュメントは /docs/ 配下に置く。
   // GitHub Pages 用。リポジトリ名を変えたらここも合わせる。
-  // ユーザー/組織サイト（<name>.github.io）として置く場合は '/' にする。
-  base: '/onealarm-doc/',
+  base: '/onealarm-doc/docs/',
+
+  // トップのランディングページ（site/）と一緒に dist へ出力する
+  outDir: '../dist/docs',
 
   // 開発中は画像の差し替えが頻繁に起きるため、リンク切れをビルドで落とす
   ignoreDeadLinks: false,
@@ -17,6 +20,7 @@ export default defineConfig({
   themeConfig: {
     // 利用者向けの読み物なので、トップナビは増やさずサイドバー1本で辿らせる
     nav: [
+      { text: 'トップ', link: 'https://hiragi-dev.github.io/onealarm-doc/' },
       { text: 'はじめかた', link: '/getting-started' },
       { text: '画面の使い方', link: '/screens' },
     ],
@@ -25,7 +29,7 @@ export default defineConfig({
       {
         text: 'OneAlarm の使い方',
         items: [
-          { text: 'OneAlarm とは', link: '/' },
+          { text: 'はじめに', link: '/' },
           { text: 'はじめかた', link: '/getting-started' },
           { text: '画面の使い方', link: '/screens' },
           { text: '鳴動中の画面', link: '/ringing' },

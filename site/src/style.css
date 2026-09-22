@@ -1,0 +1,525 @@
+/*
+ * OneAlarm ランディングページ。
+ * 既定はホワイト。data-theme="dark" でダークに切り替える。
+ * アクセント色は機器（M5StickS3）の青いボタンと、鳴動の赤から取っている。
+ */
+:root,
+:root[data-theme='light'] {
+  --bg: #ffffff;
+  --bg-soft: #f4f6f8;
+  --surface: #ffffff;
+  --surface-2: #eef1f4;
+  --text: #14171b;
+  --text-muted: #5c6673;
+  --line: rgba(20, 23, 27, 0.12);
+  --grid-line: rgba(20, 23, 27, 0.06);
+  --blue: #1c7fd6;
+  --blue-deep: #0b69b4;
+  --blue-ink: #0f6cbf;
+  --alarm: #dc3b30;
+  --green: #14a04c;
+  --on-blue: #ffffff;
+  --line-connector: rgba(20, 23, 27, 0.45);
+  --topbar-bg: rgba(255, 255, 255, 0.82);
+  --shadow: 0 18px 40px rgba(20, 23, 27, 0.14);
+  --hero-glow: rgba(28, 127, 214, 0.14);
+  --merit-border: rgba(28, 127, 214, 0.35);
+  --merit-bg-1: rgba(28, 127, 214, 0.1);
+  --merit-bg-2: rgba(28, 127, 214, 0.02);
+  --device-shadow: 0 18px 30px rgba(20, 23, 27, 0.22);
+  --blueprint-bg: #eaf1fa;
+  --blueprint-line: rgba(28, 127, 214, 0.16);
+  --blueprint-line-strong: rgba(28, 127, 214, 0.3);
+  --maxw: 1120px;
+  --font-jp: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, 'SFMono-Regular', monospace;
+}
+
+:root[data-theme='dark'] {
+  --bg: #15171b;
+  --bg-soft: #1d2026;
+  --surface: #1d2026;
+  --surface-2: #111318;
+  --text: #eef0f3;
+  --text-muted: #9aa3af;
+  --line: rgba(255, 255, 255, 0.1);
+  --grid-line: rgba(255, 255, 255, 0.1);
+  --blue: #2e9bf2;
+  --blue-deep: #0b69b4;
+  --blue-ink: #cfe8ff;
+  --alarm: #ff4b3e;
+  --green: #2fbf63;
+  --on-blue: #04121e;
+  --line-connector: rgba(255, 255, 255, 0.55);
+  --topbar-bg: rgba(21, 23, 27, 0.82);
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+  --hero-glow: rgba(46, 155, 242, 0.22);
+  --merit-border: rgba(46, 155, 242, 0.45);
+  --merit-bg-1: rgba(46, 155, 242, 0.14);
+  --merit-bg-2: rgba(46, 155, 242, 0.03);
+  --device-shadow: 0 18px 30px rgba(0, 0, 0, 0.5);
+  --blueprint-bg: #0f1722;
+  --blueprint-line: rgba(120, 180, 255, 0.12);
+  --blueprint-line-strong: rgba(120, 180, 255, 0.24);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-jp);
+  font-size: 16px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+/* 上部バー */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--topbar-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 16px 24px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.brand__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--alarm);
+  box-shadow: 0 0 0 4px rgba(220, 59, 48, 0.18);
+}
+
+.topbar__nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbar__link {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.topbar__link:hover {
+  color: var(--text);
+}
+
+/* テーマ切り替え */
+.topbar__toggle {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.topbar__toggle:hover {
+  color: var(--text);
+  border-color: var(--blue);
+}
+
+/* ヒーロー */
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.8;
+  mask-image: radial-gradient(120% 90% at 70% 20%, #000 30%, transparent 75%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 620px;
+  height: 620px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--hero-glow), transparent 65%);
+  pointer-events: none;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 48px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 88px 24px 96px;
+}
+
+.hero__title {
+  margin-top: 20px;
+  font-size: clamp(40px, 6.4vw, 76px);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.hero__title span {
+  display: block;
+}
+
+.hero__title span:nth-child(2) {
+  color: var(--alarm);
+}
+
+.hero__lead {
+  max-width: 34em;
+  margin-top: 24px;
+  font-size: 17px;
+  color: var(--text-muted);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 26px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button--primary {
+  background: var(--blue);
+  color: var(--on-blue);
+}
+
+.button--primary:hover {
+  filter: brightness(1.08);
+}
+
+.button--ghost {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--text);
+}
+
+.button--ghost:hover {
+  border-color: var(--blue);
+}
+
+.hero__visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.hero__phone {
+  width: min(280px, 62%);
+}
+
+.hero__device {
+  width: min(160px, 34%);
+  filter: drop-shadow(var(--device-shadow));
+}
+
+/* セクション共通 */
+.section {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 88px 24px;
+}
+
+.section__title {
+  margin-top: 12px;
+  font-size: clamp(26px, 3.4vw, 38px);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.section--how {
+  padding-top: 0;
+}
+
+/* メリット */
+.merits {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.merit {
+  padding: 32px;
+  border: 1px solid var(--merit-border);
+  border-radius: 20px;
+  background: linear-gradient(160deg, var(--merit-bg-1), var(--merit-bg-2));
+}
+
+.merit__title {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--blue-ink);
+}
+
+.merit__body {
+  margin-top: 12px;
+  color: var(--text-muted);
+}
+
+/* 仕組み */
+.steps {
+  display: grid;
+  gap: 56px;
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  align-items: center;
+  gap: 48px;
+}
+
+.step--reverse {
+  grid-template-columns: 1.2fr 0.8fr;
+}
+
+.step--reverse .step__media {
+  order: 2;
+}
+
+.step__media {
+  display: flex;
+  justify-content: center;
+}
+
+.steps .step__media .phone {
+  width: min(260px, 100%);
+}
+
+.step__media--device img {
+  width: min(200px, 70%);
+  filter: drop-shadow(var(--device-shadow));
+}
+
+.step__no {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--blue);
+}
+
+.step__title {
+  margin-top: 6px;
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.step__body p {
+  margin-top: 12px;
+  color: var(--text-muted);
+}
+
+/* 止められない理由 */
+.reasons {
+  display: grid;
+  gap: 14px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reasons li {
+  position: relative;
+  padding: 18px 22px 18px 52px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-2);
+  font-size: 16px;
+}
+
+.reasons li::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 50%;
+  width: 16px;
+  height: 2px;
+  background: var(--alarm);
+  transform: translateY(-50%);
+}
+
+.footnote {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* CTA */
+.cta {
+  border-top: 1px solid var(--line);
+  background: var(--bg-soft);
+}
+
+.cta__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+
+.cta__title {
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 900;
+}
+
+.cta__inner p {
+  margin-top: 8px;
+  color: var(--text-muted);
+}
+
+/* フッター */
+.footer {
+  border-top: 1px solid var(--line);
+}
+
+.footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 28px 24px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.footer__brand {
+  font-weight: 900;
+  color: var(--text);
+}
+
+.footer__link:hover {
+  color: var(--text);
+}
+
+@media (max-width: 860px) {
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 56px 24px 64px;
+  }
+
+  .hero__visual {
+    order: -1;
+  }
+
+  .merits {
+    grid-template-columns: 1fr;
+  }
+
+  .step,
+  .step--reverse {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .step--reverse .step__media {
+    order: 0;
+  }
+
+  .cta__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

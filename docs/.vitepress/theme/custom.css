@@ -1,8 +1,12 @@
 /*
  * スクリーンショットは PhoneShot コンポーネントで iPhone 風の外枠に入れて出す。
  * 幅 420px・2倍解像度で撮った画像を、本文幅より小さめに抑えて中央に置く。
+ *
+ * 外枠の寸法は 340px 幅で作ったものを cqw（コンテナ幅の 1%）で持たせている。
+ * 表示サイズを変えても、ベゼル・角丸・Dynamic Island・側面ボタンの比率が崩れない。
  */
 .phone-shot {
+  container-type: inline-size;
   margin: 1.75rem auto;
   width: 100%;
   max-width: 340px;
@@ -11,55 +15,55 @@
 /* 本体。ベゼルの金属縁と側面ボタンを擬似要素で描く */
 .phone-shot__body {
   position: relative;
-  padding: 12px;
-  border-radius: 54px;
+  padding: 3.53cqw;
+  border-radius: 15.88cqw;
   background: #1c1c1e;
   box-shadow:
-    0 0 0 1.5px #4a4a4e,
-    0 0 0 4px #2a2a2c,
-    0 24px 48px rgba(0, 0, 0, 0.35);
+    0 0 0 0.44cqw #4a4a4e,
+    0 0 0 1.18cqw #2a2a2c,
+    0 7.06cqw 14.12cqw rgba(0, 0, 0, 0.35);
 }
 
 .phone-shot__body::before,
 .phone-shot__body::after {
   content: '';
   position: absolute;
-  width: 3px;
-  border-radius: 2px;
+  width: 0.88cqw;
+  border-radius: 0.59cqw;
   background: #3a3a3c;
 }
 
 /* 左側: 音量ボタン */
 .phone-shot__body::before {
-  left: -7px;
-  top: 120px;
-  height: 90px;
-  box-shadow: 0 -60px 0 0 #3a3a3c;
+  left: -2.06cqw;
+  top: 35.29cqw;
+  height: 26.47cqw;
+  box-shadow: 0 -17.65cqw 0 0 #3a3a3c;
 }
 
 /* 右側: 電源ボタン */
 .phone-shot__body::after {
-  right: -7px;
-  top: 140px;
-  height: 110px;
+  right: -2.06cqw;
+  top: 41.18cqw;
+  height: 32.35cqw;
 }
 
 /* 画面。上端に Dynamic Island 分の余白を取り、画像の上端の色で塗る */
 .phone-shot__screen {
   position: relative;
   overflow: hidden;
-  border-radius: 42px;
-  padding-top: 44px;
-  padding-bottom: 6px;
+  border-radius: 12.35cqw;
+  padding-top: 12.94cqw;
+  padding-bottom: 1.76cqw;
   background: #000;
 }
 
 .phone-shot__island {
   position: absolute;
-  top: 11px;
+  top: 3.24cqw;
   left: 50%;
   width: 34%;
-  height: 26px;
+  height: 7.65cqw;
   transform: translateX(-50%);
   border-radius: 999px;
   background: #000;
@@ -76,11 +80,88 @@
 /* ホームインジケーター */
 .phone-shot__home {
   position: absolute;
-  bottom: 8px;
+  bottom: 2.35cqw;
   left: 50%;
   width: 36%;
-  height: 4px;
+  height: 1.18cqw;
   transform: translateX(-50%);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.8);
+}
+
+/*
+ * 機器の写真は、背景を抜いた画像を影だけ付けて置く。
+ * DeviceShot.vue から使う。
+ */
+.device-shot {
+  margin: 1.75rem auto;
+  width: 100%;
+  max-width: 200px;
+}
+
+.device-shot img {
+  display: block;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.35));
+}
+
+/*
+ * できることの説明。スクリーンショットと文章を左右に並べる。
+ * Capability.vue から使う。
+ */
+.capability {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem 2.5rem;
+  margin: 2.5rem 0;
+}
+
+.capability.is-reverse {
+  flex-direction: row-reverse;
+}
+
+.capability__media {
+  display: flex;
+  flex: 0 0 200px;
+  justify-content: center;
+}
+
+.capability__media .phone-shot,
+.capability__media .device-shot {
+  flex: none;
+  width: 200px;
+  max-width: 200px;
+  margin: 0;
+}
+
+.capability__text {
+  flex: 1 1 260px;
+}
+
+.capability__title {
+  margin: 0 0 0.5rem;
+  border-top: 0;
+  padding-top: 0;
+  font-size: 20px;
+}
+
+.capability__text p {
+  margin: 0;
+}
+
+@media (max-width: 639px) {
+  .capability,
+  .capability.is-reverse {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .capability__media .phone-shot,
+  .capability__media .device-shot {
+    width: 180px;
+    max-width: 180px;
+  }
 }
